@@ -1,6 +1,8 @@
 # PolypGAN
 
-Source code for *Generative Image Translation for Data Augmentation in Colorectal Histopathology Images (Wei et al.)*
+Source code for *Generative Image Translation for Data Augmentation in Colorectal Histopathology Images*
+
+Jerry Wei, Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, Saeed Hassanpour
 
 <p align="center">
   <img width="460" height="600" src="https://github.com/BMIRDS/PolypGAN/blob/master/TransformationBases.png">
