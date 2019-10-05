@@ -2,6 +2,10 @@
 
 Source code for *Generative Image Translation for Data Augmentation in Colorectal Histopathology Images (Wei et al.)*
 
+<p align="center">
+  <img width="460" height="600" src="https://github.com/BMIRDS/PolypGAN/blob/master/TransformationBases.png">
+</p>
+
 
 ## 1. Packages used (dependencies):
 - Numpy 1.15.2
@@ -90,6 +94,8 @@ A. Prepare folder
         - Images *with the same name* will automatically be joined with a black border 
     - output folder is the folder that will be created to save the combined images
     - **Edit parameters inside code file**
+    - Will yield something like 
+![](https://github.com/BMIRDS/PolypGAN/blob/master/Example1.png)
 - compress.py: contains various functions that can be used to change images
     - input folder will contain images that you want to modify (e.g. "images/a.jpg")
     - Automatically removes duplicate images (an image name that has "dup" in it)
