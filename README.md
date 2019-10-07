@@ -5,7 +5,7 @@ Source code for *Generative Image Translation for Data Augmentation in Colorecta
 Jerry Wei, Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, Saeed Hassanpour
 
 <p align="center">
-  <img width="460" height="600" src="https://github.com/BMIRDS/PolypGAN/blob/master/TransformationBases.png">
+  <img width="460" height="600" src="https://github.com/BMIRDS/PolypGAN/blob/master/Figures/TransformationBases.png">
 </p>
 
 
@@ -97,7 +97,11 @@ A. Prepare folder
     - output folder is the folder that will be created to save the combined images
     - **Edit parameters inside code file**
     - Will yield something like 
-![](https://github.com/BMIRDS/PolypGAN/blob/master/Example1.png)
+    
+<p align="center">
+  <img width="460" height="60" src="https://github.com/BMIRDS/PolypGAN/blob/master/Figures/Example1.png">
+</p>
+
 - compress.py: contains various functions that can be used to change images
     - input folder will contain images that you want to modify (e.g. "images/a.jpg")
     - Automatically removes duplicate images (an image name that has "dup" in it)
