@@ -28,7 +28,7 @@ Jerry Wei, Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, 
 2. CycleGAN - all code used to train CycleGAN models. Original implementation from [xhujoy](https://github.com/xhujoy/CycleGAN-tensorflow).
 3. DCGAN - all code used to train DCGAN models. Original implementation from [carpedm20](https://github.com/carpedm20/DCGAN-tensorflow).
 4. DiscoGAN - all code used to train DiscoGAN models. Original implementation from [carpedm20](https://github.com/carpedm20/DiscoGAN-pytorch).
-5. ResNet - all code used to train ResNet classifier models. Original implementation from 
+5. ResNet - all code used to train ResNet classifier models. Original implementation from [BMIRDS](https://github.com/BMIRDS/deepslide).
 
 ## 3. Basic Usage
 ### 1. Train Generative Model(s)
