@@ -5,7 +5,7 @@ from scipy.misc import imsave
 
 
 class image_class:
-    """<EXPLAIN THIS CLASS HERE>
+    """Loads an image using cv2 and can operate on the image
     """
     def __init__(self, image_path):
         # Read in the image and its dimensions
