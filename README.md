@@ -145,3 +145,8 @@ A. Prepare folder
     - Also has an operation where you can get N random images from a folder
     - Other parameters explained in code
     - **Edit parameters using argparse when running code**
+
+# Citations
+HistoGAN is an open-source library and is licensed under the GNU General Public License (v3). For questions contact Saeed Hassanpour at Saeed.Hassanpour@dartmouth.edu. If you are using this library please cite:
+
+Jerry Wei, Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, Saeed Hassanpour, "Generative Image Translation for Data Augmentation in Colorectal Histopathology Images", Full Paper in Machine Learning for Health Workshop at NeurIPS, In Press, 2019.
