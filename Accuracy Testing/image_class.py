@@ -5,7 +5,8 @@ from scipy.misc import imsave
 
 
 class image_class:
-
+    """<EXPLAIN THIS CLASS HERE>
+    """
     def __init__(self, image_path):
         # Read in the image and its dimensions
         self.image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
@@ -14,13 +15,13 @@ class image_class:
         self.height = self.image.shape[1]
 
     def get_area(self):
-        return (float)(self.width*self.height)
+        return float(self.width*self.height)
 
     def get_side_lengths(self):
         return self.width, self.height
 
     def get_size(self):
-        return (int)(os.path.getsize(self.original_path))
+        return int(os.path.getsize(self.original_path))
 
     def get_image(self):
         return self.image
@@ -31,11 +32,9 @@ class image_class:
     def increase_brightness(self, value):
         hsv = cv2.cvtColor(self.image, cv2.COLOR_RGB2HSV)
         h, s, v = cv2.split(hsv)
-
         lim = 255 - value
         v[v > lim] = 255
         v[v <= lim] += value
-
         final_hsv = cv2.merge((h, s, v))
         self.image = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2RGB)
 
@@ -48,46 +47,44 @@ class image_class:
             smaller_side = "height"
         else:
             smaller_side = "same"
-
         # Get the middle part of the image
         if smaller_side is "width":
-            self.image = self.image[:, (int)((self.height-self.width)/2):(int)((self.height-self.width)/2 + self.width), :]
+            hw_diff = self.height-self.width
+            self.image = self.image[:, int(hw_diff/2):int(hw_diff/2 + self.width), :]
             self.height = self.image.shape[1]
         elif smaller_side is "height":
-            start = (int)((self.width-self.height)/2)
-            self.image = self.image[start:(int)(start+self.height), :, :]
+            start = int((self.width-self.height)/2)
+            self.image = self.image[start:int(start+self.height), :, :]
             self.width = self.image.shape[0]
-
-        print("Rescaled to " + str(self.width) + "x" + str(self.height))
+        print("Rescaled to {}x{}".format(self.width, self.height))
 
     def compress(self, factor):
         # Retain original width and height
         original_width = self.width
         original_height = self.height
-
         # Compress image and get new dimensions
         self.image = cv2.resize(self.image, None, fx=1.0/factor, fy=1.0/factor)
         self.width = self.image.shape[0]
         self.height = self.image.shape[1]
-
-        print("Compressed image from size ", original_width, "x", original_height, " to ", self.width, "x", self.height)
+        print("Compressed image from size ",
+              original_width, "x", original_height,
+              " to ", self.width, "x", self.height)
 
     def expand(self, factor):
         # Retain original width and height
         original_width = self.width
         original_height = self.height
-
         # Resize image and get new dimensions
         self.image = cv2.resize(self.image, None, fx=factor, fy=factor)
         self.width = self.image.shape[0]
         self.height = self.image.shape[1]
-
-        print("Expanded image from size ", original_width, "x", original_height, " to ", self.width, "x", self.height)
+        print("Expanded image from size ",
+              original_width, "x", original_height,
+              " to ", self.width, "x", self.height)
 
     def compress_to_square(self, final_side_length):
         # Make the image a square
         self.resize_to_square()
-
         # Compress the image
         self.compress(self.width/final_side_length)
 
@@ -95,12 +92,10 @@ class image_class:
         # Check if images are compatible
         assert self.width is other_image.get_image().shape[0]
         assert self.height is other_image.get_image().shape[1]
-
         # Create a new image
         new_image = np.zeros((self.width, self.height, 3), np.uint8)
-
         # Fill in the image
-        new_image[:, 0:int(self.height/2), :] = self.image[:, 0:int(self.height/2), :]
-        new_image[:, int(self.height/2):, :] = other_image.get_image()[:, int(self.height/2):, :]
-
+        half_height = int(self.height/2)
+        new_image[:, 0:half_height, :] = self.image[:, 0:half_height, :]
+        new_image[:, half_height:, :] = other_image.get_image()[:, half_height:, :]
         return new_image

@@ -1,8 +1,17 @@
 import csv
 import os
+import sys
+from os.path import basename, join
+EPS = sys.float_info.epsilon
 
 
 def calculate_conf_matrix(master_file, real_answers, fake_answers):
+    """
+    Args:
+        master_file (<TYPE>): <EXPLAIN THIS PARAM HERE>
+        real_answers (<TYPE>): <EXPLAIN THIS PARAM HERE>
+        fake_answers (<TYPE>): <EXPLAIN THIS PARAM HERE>
+    """
     real = []
     predictions = []
     names = []
@@ -17,7 +26,8 @@ def calculate_conf_matrix(master_file, real_answers, fake_answers):
                 line_count += 1
             else:
                 real.append(row[2])
-                predictions.append(row[3])    # Copy-Paste pathologist's predictions into this row
+                # Copy-Paste pathologist's predictions into this row
+                predictions.append(row[3])
                 names.append(row[0])
 
     assert len(real) is len(predictions)
@@ -41,55 +51,65 @@ def calculate_conf_matrix(master_file, real_answers, fake_answers):
         elif real[index] is 'R' and predictions[index] in fake_answers:
             fp += 1
 
-    print("True Positives: " + str(tp))
-    print("False Positives: " + str(fp))
-    print("True Negatives: " + str(tn))
-    print("False Negatives: " + str(fn))
+    print("True Positives: {}".format(tp))
+    print("False Positives: {}".format(fp))
+    print("True Negatives: {}".format(tn))
+    print("False Negatives: {}".format(fn))
 
-    precision = 1.0*tp/(tp+fp)
-    recall = 1.0*tp/(tp+fn)
-    f1 = 2.0*precision*recall/(precision+recall)
+    precision = 1.0*tp/(tp+fp+EPS)
+    recall = 1.0*tp/(tp+fn+EPS)
+    f1 = 2.0*precision*recall/(precision+recall+EPS)
 
-    print("Precision: " + str(precision))
-    print("Recall: " + str(recall))
-    print("F1: " + str(f1))
+    print("Precision: {:.4f}".format(precision))
+    print("Recall: {:.4f}".format(recall))
+    print("F1: {:.4f}".format(f1))
 
     return real, predictions, names
 
 
 def retrieve_images(master_file, real_answers, fake_answers):
+    """<EXPLAIN THIS FUNCTION HERE>
+
+    Args:
+        master_file (<TYPE>): <EXPLAIN THIS PARAM HERE>
+        real_answers (<TYPE>): <EXPLAIN THIS PARAM HERE>
+        fake_answers (<TYPE>): <EXPLAIN THIS PARAM HERE>
+    """
+    outcomes = ["true_negatives",
+                "false_negatives",
+                "true_positives",
+                "false_positives"]
     real, predictions, names = calculate_conf_matrix(master_file, real_answers, fake_answers)
 
     # Create folders
-    if not os.path.exists("true_positives/"):
-        os.makedirs("true_positives/")
-    if not os.path.exists("false_negatives/"):
-        os.makedirs("false_negatives/")
-    if not os.path.exists("true_negatives/"):
-        os.makedirs("true_negatives/")
-    if not os.path.exists("false_positives/"):
-        os.makedirs("false_positives/")
+    for outcome in outcomes:
+        os.makedirs(outcome, exist_ok=True)
 
     # Save images
     for index in range(len(real)):
-
-        # True negative
-        if real[index] is 'R' and predictions[index] in real_answers:
-            os.system("cp -r " + names[index] + " true_negatives/" + names[index].split('/')[1])
-        # False negative
-        elif real[index] is 'F' and predictions[index] in real_answers:
-            os.system("cp -r " + names[index] + " false_negatives/" + names[index].split('/')[1])
-        # True positive
-        elif real[index] is 'F' and predictions[index] in fake_answers:
-            os.system("cp -r " + names[index] + " true_positives/" + names[index].split('/')[1])
-        # False positive
-        elif real[index] is 'R' and predictions[index] in fake_answers:
-            os.system("cp -r " + names[index] + " false_positives/" + names[index].split('/')[1])
+        real_label = real[index]
+        pred_label = predictions[index]
+        outcome = None
+        if real_label is 'R' and pred_label in real_answers:
+            outcome = outcomes[0]
+        elif real_label is 'F' and pred_label in real_answers:
+            outcome = outcomes[1]
+        elif real_label is 'F' and pred_label in fake_answers:
+            outcome = outcomes[2]
+        elif real_label is 'R' and pred_label in fake_answers:
+            outcome = outcomes[3]
+        else:
+            # Unrecognized outcome
+            continue
+        if outcome is not None:
+            filepath = names[index]
+            command = "cp -r {} {}".format(filepath, join(outcome, basename(filepath)))
+            os.system(command)
 
 
 if __name__ == "__main__":
-
-    real_answers = ['R', ' ', '', 'r', 'real', 'Real']                  # List of ways pathologists can mark as real
-    fake_answers = ['F', 'f', 'fake']                                   # List of ways pathologists can mark as fake
-
+    # List of ways pathologists can mark as real
+    real_answers = ['R', ' ', '', 'r', 'real', 'Real']
+    # List of ways pathologists can mark as fake
+    fake_answers = ['F', 'f', 'fake']
     retrieve_images("master_file.csv", real_answers, fake_answers)

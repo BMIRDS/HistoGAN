@@ -12,40 +12,33 @@ def remove_duplicates(image_list):
 
 # Gets a list of all images (including if it's used multiple times)
 def find_images(list_of_folders):
-
     length = len(list_of_folders)
-
     # Base case
     if length is 0:
         return []
     else:
         images_in_this_folder = []
-
         for image in os.listdir(list_of_folders[length-1]):
             images_in_this_folder.append(image)
-
         return images_in_this_folder + find_images(list_of_folders[:-1])
 
 
 # Sees if an image string is in a folder
 def image_in_folder(image, folder):
-
-    if each in os.listdir(folder):
-        return True
-
-    return False
+    return each in os.listdir(folder)
 
 
 # Add border to image
 def add_border(image, image_width, image_height, border_width):
     blank_image = tf.zeros((image_width, image_height, 3), tf.uint8)
-    width, height = image.shape[0], image.shape[1]
-    blank_image[border_width:border_width+width, border_width:border_width+height, :] = image
-
+    width, height = image.shape[:2]
+    blank_image[border_width:border_width+width,
+                border_width:border_width+height, :] = image
     return blank_image
 
 
-def create_image_rows(list_of_folders, image_width, image_height, output_folder, border_width, between_images):
+def create_image_rows(list_of_folders, image_width, image_height,
+                      output_folder, border_width, between_images):
 
     # List of unique images
     unique_images = remove_duplicates(find_images(list_of_folders))
@@ -67,7 +60,10 @@ def create_image_rows(list_of_folders, image_width, image_height, output_folder,
             continue
 
         # Create an empty image
-        blank_image = tf.ones((image_width, image_height*counter + (counter-1) * between_images + 2*between_images, 3), tf.uint8)
+        blank_image = tf.ones((
+            image_width,
+            image_height*counter + (counter-1)*between_images + 2*between_images,
+            3), tf.uint8)
         blank_image.fill(255)
 
         # Fill the empty image
@@ -78,17 +74,20 @@ def create_image_rows(list_of_folders, image_width, image_height, output_folder,
                     # Load the image
                     image_path = os.path.join(folder, image)
                     current_image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
-                    b, g, r = cv2.split(current_image)
-                    current_image = cv2.merge((r, g, b))
+                    current_image = cv2.cvtColor(current_image, cv2.COLOR_BGR2RGB)
                     current_image = add_border(current_image, image_width, image_height, border_width)
 
                     # Insert the image
+                    height_start = image_height * image_counter
+                    height_end = image_height * (image_counter+1)
                     if image_counter is 0:
-                        blank_image[:, image_height*image_counter + (image_counter*between_images): image_height * (image_counter+1) + (image_counter*between_images), :] = current_image
+                        margin = image_counter * between_images
                     else:
-                        blank_image[:, image_height*image_counter + (image_counter*between_images) + 2 * between_images:image_height*(image_counter+1)
-                                    + (image_counter*between_images) + 2 * between_images, :] = current_image
+                        margin = (image_counter+2) * between_images
+                    height_start += margin
+                    height_end += margin
 
+                    blank_image[:, height_start:height_end, :] = current_image
                     image_counter += 1
 
         # Save the image
@@ -97,17 +96,19 @@ def create_image_rows(list_of_folders, image_width, image_height, output_folder,
 
 
 if __name__ == "__main__":
-
-    # Paths to folders containing the images to combine
-    input_folders = []                                                              # Manaully change this, inputs of folder
-
+    # Paths to folders containing the images to combine (Manaully change this, inputs of folder)
+    input_folders = []
     # Name of the folder that will be created to save the combined images
     output_folder = "nototv_rows"
-
     # Width of the black border between images
     border_width = 3
-
     # Can also specify to include whitespace between images
     between_images = 40
 
-    create_image_rows(input_folders, 256 + 2*border_width, 256 + 2*border_width, output_folder, border_width, between_images)
+    create_image_rows(
+        list_of_folders=input_folders,
+        image_width=256 + 2*border_width,
+        image_height=256 + 2*border_width,
+        output_folder=output_folder,
+        border_width=border_width,
+        between_images=between_images)
