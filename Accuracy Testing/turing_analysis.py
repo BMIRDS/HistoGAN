@@ -8,9 +8,9 @@ EPS = sys.float_info.epsilon
 def calculate_conf_matrix(master_file, real_answers, fake_answers):
     """
     Args:
-        master_file (<TYPE>): <EXPLAIN THIS PARAM HERE>
-        real_answers (<TYPE>): <EXPLAIN THIS PARAM HERE>
-        fake_answers (<TYPE>): <EXPLAIN THIS PARAM HERE>
+        master_file (String): Master csv file from turing_test.py, should contain all information about images
+        real_answers (List of Strings): List of acceptable answers to count an image as being marked "real"
+        fake_answers (List of Strings): List of acceptable answers to count an image as being marked "fake"
     """
     real = []
     predictions = []
