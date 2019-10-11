@@ -1,4 +1,4 @@
-# PolypGAN
+# HistoGAN
 
 Source code for *Generative Image Translation for Data Augmentation in Colorectal Histopathology Images*
 
