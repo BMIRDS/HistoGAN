@@ -2,7 +2,7 @@
 
 Source code for *Generative Image Translation for Data Augmentation in Colorectal Histopathology Images*
 
-[Jerry Wei](https://github.com/JerryWei03), Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, Saeed Hassanpour
+[Jerry Wei](https://github.com/JerryWei03), Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, [Saeed Hassanpour] (https://www.hassanpourlab.com)
 
 <p align="center">
   <img width="460" height="525" src="https://github.com/BMIRDS/PolypGAN/blob/master/Figures/TransformationBases.png">
