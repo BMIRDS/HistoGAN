@@ -5,7 +5,7 @@ from os.path import splitext
 from scipy.misc import imsave
 from image_class import image_class
 
-"""<EXPLAIN THIS SCRIPT HERE>
+"""Various functions that can be performed on images (e.g. compression, brightness)
 
 PARAM CHANGES:
 1. USE A BOOLEAN FLAG
