@@ -1,6 +1,6 @@
 # HistoGAN
 
-Source code for *Generative Image Translation for Data Augmentation in Colorectal Histopathology Images*
+Source code for *[Generative Image Translation for Data Augmentation in Colorectal Histopathology Images](https://arxiv.org/abs/1910.05827)*
 
 [Jerry Wei](https://github.com/JerryWei03), Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, [Saeed Hassanpour](https://www.hassanpourlab.com)
 
@@ -149,4 +149,4 @@ A. Prepare folder
 # Citations
 HistoGAN is an open-source library and is licensed under the GNU General Public License (v3). For questions contact Saeed Hassanpour at Saeed.Hassanpour@dartmouth.edu. If you are using this library please cite:
 
-```Jerry Wei, Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, Saeed Hassanpour, "Generative Image Translation for Data Augmentation in Colorectal Histopathology Images", Full Paper in Machine Learning for Health Workshop at NeurIPS, In Press, 2019. https://arxiv.org/abs/1910.05827.```
+```Jerry Wei, Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, Saeed Hassanpour, "Generative Image Translation for Data Augmentation in Colorectal Histopathology Images", Full Paper in Machine Learning for Health Workshop at NeurIPS, In Press, 2019.```
