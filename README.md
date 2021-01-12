@@ -1,6 +1,6 @@
 # HistoGAN
 
-Source code for *[Generative Image Translation for Data Augmentation in Colorectal Histopathology Images](https://arxiv.org/abs/1910.05827)*
+Source code for *[Generative Image Translation for Data Augmentation in Colorectal Histopathology Images](http://proceedings.mlr.press/v116/wei20a.html)*
 
 [Jerry Wei](https://github.com/JerryWei03), Arief Suriawinata, Louis Vaickus, Bing Ren, Xiaoying Liu, Jason Wei, [Saeed Hassanpour](https://www.hassanpourlab.com)
 
